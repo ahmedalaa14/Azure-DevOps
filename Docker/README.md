@@ -14,7 +14,7 @@ Before you begin, make sure that Docker installed on your machine.
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/ahmedalaa14/
+    git clone https://github.com/ahmedalaa14/Azure-DevOps.git
     ```
 
 2. Navigate to the Docker directory:

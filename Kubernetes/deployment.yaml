@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+  spec:
+    replicas: 3
+    selector:
+      matchLabels:
+        app: flask-app
+    template:
+      metadata:
+        labels:
+          app: flask-app
+      spec:
+        containers:
+        - name: azure-devops
+          image: ahmedalaa14/azure-devops
+          ports:
+          - containerPort: 5000
+          
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: configmap
+                  key: POSTGRES_DB
+
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: configmap
+                  key: POSTGRES_USER    
+
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: POSTGRES_PASSWORD  
+
+            - name: POSTGRES_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: configmap
+                  key: POSTGRES_HOST   
+          
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 5
+
+            livenessProbe:
+              httpGet:
+                path: /
+                port: 5000
+              initialDelaySeconds: 15
+              periodSeconds: 10
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

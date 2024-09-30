@@ -38,4 +38,9 @@ docker-compose up
 ```
 Access the application in your browser at http://localhost:5000.
 
+## Paths
+
+### `/` Displays a welcome message.
+### `/user` Provides user registration functionality.
+### `/live` Checks the connection to the PostgreSQL database.
 
